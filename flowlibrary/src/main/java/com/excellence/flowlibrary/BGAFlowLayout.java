@@ -2,6 +2,7 @@ package com.excellence.flowlibrary;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -115,6 +116,7 @@ public class BGAFlowLayout extends ViewGroup {
             if (mIsDistributionWhiteSpacing && i != rowCount - 1) {
                 row.layout(true, top);
             } else {
+                //(i != rowCount - 1)表示最后一行，不平均分配空白的宽度
                 row.layout(false, top);
             }
             top += row.mHeight + mVerticalChildGap;
@@ -165,7 +167,8 @@ public class BGAFlowLayout extends ViewGroup {
 
             int left = getPaddingLeft();
             int count = mViews.size();
-            int splitWidth = (mMaxWidth - mWidth) / count;
+            //Math.ceil避免右侧没对齐的小瑕疵
+			int splitWidth = (int) Math.ceil((float) (mMaxWidth - mWidth) / count);
             View view;
             for (int i = 0; i < count; i++) {
                 view = mViews.get(i);
@@ -197,4 +200,11 @@ public class BGAFlowLayout extends ViewGroup {
     public static int dp2px(Context context, float dpValue) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.getResources().getDisplayMetrics());
     }
+
+	@Override
+	protected void dispatchDraw(Canvas canvas)
+	{
+		super.dispatchDraw(canvas);
+		System.out.println(" measure height : " + getMeasuredHeight());
+	}
 }

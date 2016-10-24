@@ -2,10 +2,12 @@ package com.excellence.flowlibrary;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+//较多的标签时，缺失最后一行
 /**
  * FlowLayout is much more like a {@link android.widget.LinearLayout}, but it can automatically
  * separate the widgets wrapped in it into multiple lines just like the water flow.
@@ -21,7 +23,7 @@ public class FlowLayout extends ViewGroup {
 
     private int mVerticalSpacing;
     private int mHorizontalSpacing;
-    
+
     public FlowLayout(Context context) {
         super(context);
     }
@@ -123,4 +125,11 @@ public class FlowLayout extends ViewGroup {
             childLeft += childWidth + mHorizontalSpacing;
         }
     }
+
+	@Override
+	protected void dispatchDraw(Canvas canvas)
+	{
+		super.dispatchDraw(canvas);
+		System.out.println(" measure height : " + getMeasuredHeight());
+	}
 }
