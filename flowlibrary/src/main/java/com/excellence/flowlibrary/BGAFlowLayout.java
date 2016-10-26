@@ -167,8 +167,8 @@ public class BGAFlowLayout extends ViewGroup {
 
             int left = getPaddingLeft();
             int count = mViews.size();
-            //Math.ceil避免右侧没对齐的小瑕疵
-			int splitWidth = (int) Math.ceil((float) (mMaxWidth - mWidth) / count);
+            //Math.ceil避免右侧没对齐的小瑕疵==考虑(int) Math.ceil((float) (mMaxWidth - mWidth) / count)
+			int splitWidth = (mMaxWidth - mWidth) / count;
             View view;
             for (int i = 0; i < count; i++) {
                 view = mViews.get(i);
